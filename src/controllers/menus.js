@@ -18,7 +18,17 @@ const getAllMenus = async (req, res) => {
   }
 };
 
+const getMenu = async (req, res) => {
+  try {
+    const menu = await Menu.findOne({ _id: req.params.id });
+    res.status(200).json({ menu });
+  } catch (error) {
+    res.status(404).json({ error: 'Item doesn`t exist.' });
+  }
+};
+
 module.exports = {
   createMenu,
-  getAllMenus
+  getAllMenus,
+  getMenu
 }
