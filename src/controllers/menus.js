@@ -1,6 +1,11 @@
 const Menu = require('../models/menus');
 
 const createMenu = async (req, res) => {
+  const alreadyExists = await Menu.findOne({ name: req.body.name });
+  if (alreadyExists) {
+    res.status(422).json({ message: 'This item already exists.' });
+  }
+  
   try {
     const menu = await Menu.create(req.body);
     res.status(201).json({ menu, message: 'Menu criado com sucesso.' });
