@@ -27,8 +27,27 @@ const getMenu = async (req, res) => {
   }
 };
 
+const updateMenu = async (req, res) => {
+  const { name, brand } = req.body;
+
+  try {
+    const menu = await Menu.findOne({ _id: req.params.id });
+    
+    Object.assign(menu, {
+      name,
+      brand
+    });
+    
+    await menu.save();
+    res.status(200).json({ menu });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 module.exports = {
   createMenu,
   getAllMenus,
-  getMenu
+  getMenu,
+  updateMenu
 }
