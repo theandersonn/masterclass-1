@@ -7,8 +7,18 @@ const createMenu = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error });
   }
-}
+};
+
+const getAllMenus = async (req, res) => {
+  try {
+    const menus = await Menu.find({}).sort('createdAt');
+    res.status(200).json({ menus });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
 
 module.exports = {
-  createMenu
+  createMenu,
+  getAllMenus
 }
